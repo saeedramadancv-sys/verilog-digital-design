@@ -1,0 +1,35 @@
+{
+  // Lint Verilog as you type using the Icarus install that already runs the
+  // testbenches, so the editor and the simulator agree on what is an error.
+  // The extension is mshr-h.veriloghdl.
+  "verilog.linting.linter": "iverilog",
+  "verilog.linting.iverilog.arguments": "-g2012 -Wall",
+
+  // Windows install path from `winget install Icarus.Verilog`. On Linux or
+  // macOS iverilog is normally on PATH and this line can be removed.
+  "verilog.linting.path": "C:\\iverilog\\bin\\",
+
+  "[verilog]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.rulers": [80]
+  },
+  "[vhdl]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.rulers": [80]
+  },
+
+  // The build writes simulation artefacts here; hiding them keeps the file
+  // tree showing only sources.
+  "files.exclude": {
+    "sim/": true
+  },
+
+  "files.associations": {
+    "*.v": "verilog",
+    "*.vh": "verilog",
+    "*.sv": "systemverilog",
+    "*.vhd": "vhdl"
+  }
+}
