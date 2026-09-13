@@ -1,0 +1,45 @@
+name: Simulate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verilog:
+    name: Verilog simulation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+
+      # Each testbench exits non-zero on failure, so a broken design fails the
+      # job rather than printing a warning nobody reads.
+      - name: ALU
+        run: |
+          mkdir -p sim
+          iverilog -g2012 -Wall -o sim/alu_tb.vvp rtl/alu.v tb/alu_tb.v
+          vvp sim/alu_tb.vvp
+
+      - name: Sequence detector
+        run: |
+          iverilog -g2012 -Wall -o sim/seq_tb.vvp rtl/seq_detector.v tb/seq_detector_tb.v
+          vvp sim/seq_tb.vvp
+
+  vhdl:
+    name: VHDL simulation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install GHDL
+        run: sudo apt-get update && sudo apt-get install -y ghdl
+
+      - name: ALU
+        run: |
+          mkdir -p sim/ghdl
+          ghdl -a --std=08 --workdir=sim/ghdl vhdl/alu.vhd vhdl/alu_tb.vhd
+          ghdl -r --std=08 --workdir=sim/ghdl alu_tb
