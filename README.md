@@ -23,8 +23,8 @@ tb/     alu_tb.v           24 directed checks
 | Design | Simulator | Checks | Result |
 |---|---|---|---|
 | `alu.v` | Icarus Verilog 12 | 24 | pass |
-| `alu.vhd` | GHDL 6 (VHDL-2008) | 24 | pass |
-| `seq_detector.v` | Icarus Verilog 12 | 21 bits, 3 pulses | pass |
+| `alu.vhd` | GHDL (VHDL-2008) | 24 | pass |
+| `seq_detector.v` | Icarus Verilog 12 | 24 bits, 3 pulses | pass |
 
 ## Running it
 
@@ -36,7 +36,6 @@ make            # runs everything
 make alu        # Verilog ALU only
 make fsm        # sequence detector only
 make vhdl       # VHDL ALU only
-make waves      # regenerate the VCD files for GTKWave
 ```
 
 ## Design notes
